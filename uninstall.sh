@@ -68,4 +68,5 @@ as_root rm -f /usr/local/bin/mcpelauncher-webview
 as_root rm -rf /usr/local/share/mcpelauncher
 as_root rm -f /usr/local/share/applications/mcpelauncher-ui-qt.desktop
 as_root rm -f /usr/local/share/pixmaps/mcpelauncher-ui-qt.png
-status "==> Launcher uninstalled successfully."
+status "==> Source-built launcher uninstalled successfully."
+status "==> Note: Doesn't uninstall installed DEB or AUR package."
