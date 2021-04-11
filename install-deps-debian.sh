@@ -51,12 +51,13 @@ as_root() {
   fi
 }
 # Launch apt to install dependencies.
-as_root apt install -y build-essential clang cmake gettext git libasound2 \
-                       libcurl4-openssl-dev libegl1-mesa-dev libevdev-dev \
-                       libpng-dev libprotobuf-dev libpulse-dev libqt5svg5-dev \
-                       libssl-dev libtool libudev-dev libuv1-dev libx11-dev \
-                       libxi-dev libzip-dev ninja-build protobuf-compiler \
-                       qml-module-qtquick2 qml-module-qtquick-controls \
+as_root apt install -y autoconf build-essential clang cmake gettext git \
+                       libasound2 libcurl4-openssl-dev libegl1-mesa-dev \
+                       libevdev-dev libpng-dev libprotobuf-dev libpulse-dev \
+                       libqt5svg5-dev libssl-dev libtool libudev-dev \
+                       libuv1-dev libx11-dev libxi-dev libzip-dev ninja-build \
+                       protobuf-compiler qml-module-qtquick2 \
+                       qml-module-qtquick-controls \
                        qml-module-qtquick-controls2 qml-module-qtquick-dialogs \
                        qml-module-qtquick-layouts qml-module-qtquick-window2 \
                        qml-module-qt-labs-folderlistmodel \
