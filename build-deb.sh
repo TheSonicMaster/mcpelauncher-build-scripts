@@ -43,6 +43,9 @@ set -e
 status() {
   echo -e "\e[1m\e[32m$*\e[0m"
 }
+status2() {
+  printf "\e[1m\e[32m$*\e[0m"
+}
 warn() {
   echo -e "\e[1m\e[33m$*\e[0m"
 }
@@ -70,23 +73,26 @@ builddir=/tmp/build$(date "+%Y%m%d%H%M%S")
 mkdir -p $builddir && cd $builddir
 # Set package directory.
 pkgdir=/tmp/pkg$(date "+%Y%m%d%H%M%S")/mcpelauncher-thesonicmaster
+# Check and set version version
+status2 "==> Checking version... "
+ver="$(curl -s https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/latest.version)"
+pkgver="$ver~$(lsb_release -sc)"
+status "$ver"
 # Download latest source code.
 status "==> Downloading source code..."
-curl -O https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/mcpelauncher-thesonicmaster-current.tar.xz
+curl -O https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/mcpelauncher-thesonicmaster-$ver.tar.xz
 # Extract source tarball.
 status "==> Unpacking source tarball, please be patient..."
-tar -xJf mcpelauncher-thesonicmaster-current.tar.xz
+tar -xJf mcpelauncher-thesonicmaster-$ver.tar.xz
 # Remove tarball to free up space.
-rm mcpelauncher-thesonicmaster-current.tar.xz
+rm mcpelauncher-thesonicmaster-$ver.tar.xz
 # Change to source directory.
-cd mcpelauncher-thesonicmaster*
-# Package version is in the format 'yyyymmdd~OSCodename'.
-pkgver="$(cat version.txt)~$(lsb_release -sc)"
+cd mcpelauncher-thesonicmaster-$ver
 # Specify cmake options for the build.
 cmake_options="-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -Wno-dev -G Ninja"
 # Build MSA.
 status "==> Building MSA (for Xbox Live)..."
-cd msa-manifest
+cd msa
 mkdir build && cd build
 CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
 ninja
@@ -96,7 +102,7 @@ DESTDIR=$pkgdir ninja install
 cd ../..
 # Build the game launcher.
 status "==> Building the game launcher..."
-cd mcpelauncher-manifest
+cd mcpelauncher
 mkdir build && cd build
 CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake $cmake_options ..
 ninja
@@ -106,7 +112,7 @@ DESTDIR=$pkgdir ninja install
 cd ../..
 # Build the Qt GUI.
 status "==> Building the Qt GUI..."
-cd mcpelauncher-ui-manifest
+cd mcpelauncher-ui
 mkdir build && cd build
 CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake $cmake_options ..
 ninja
@@ -143,6 +149,8 @@ if [ -f $libdir/libzip.so.4 ]; then
   libzip=libzip4
 elif [ -f $libdir/libzip.so.5 ]; then
   libzip=libzip5
+else
+  warn "==> Correct libzip version not found. Dependency will be excluded."
 fi
 if [ -f $libdir/libprotobuf.so.10 ]; then
   protobuf=libprotobuf10
@@ -150,6 +158,8 @@ elif [ -f $libdir/libprotobuf.so.17 ]; then
   protobuf=libprotobuf17
 elif [ -f $libdir/libprotobuf.so.23 ]; then
   protobuf=libprotobuf23
+else
+  warn "==> Correct protobuf version not found. Dependency will be excluded."
 fi
 # Calculate package size.
 cd $pkgdir
@@ -171,8 +181,7 @@ END
 # Create package.
 status "==> Building DEB package..."
 cd $pkgdir/..
-dpkg-deb --build mcpelauncher-thesonicmaster
-mv -v mcpelauncher-thesonicmaster.deb mcpelauncher-thesonicmaster_${pkgver}_${arch}.deb
+dpkg-deb --build mcpelauncher-thesonicmaster mcpelauncher-thesonicmaster_${pkgver}_${arch}.deb
 mv mcpelauncher-thesonicmaster_${pkgver}_${arch}.deb $savedir
 # Clean up.
 status "==> Cleaning up..."
