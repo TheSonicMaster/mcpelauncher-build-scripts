@@ -1,4 +1,4 @@
-# Maintainer: Your name <email address>
+# Maintainer: Daniel Massey <masseyd1396@gmail.com>
 
 pkgname=mcpelauncher-thesonicmaster
 pkgver=20210417
