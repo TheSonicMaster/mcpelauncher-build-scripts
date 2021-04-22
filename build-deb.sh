@@ -171,6 +171,7 @@ Package: mcpelauncher-thesonicmaster
 Version: $pkgver
 Architecture: $arch
 Depends: libc6, libssl1.1, libcurl4, libqt5widgets5, libqt5webenginewidgets5, libstdc++6, libx11-6, zlib1g, libpng16-16, libevdev2, libudev1, $libzip, libuv1, libqt5quick5, libqt5svg5, libqt5quickcontrols2-5, libqt5quicktemplates2-5, libqt5concurrent5, $protobuf, qml-module-qtquick2, qml-module-qtquick-layouts, qml-module-qtquick-controls, qml-module-qtquick-controls2, qml-module-qtquick-window2, qml-module-qtquick-dialogs, qml-module-qtwebengine, qml-module-qt-labs-settings, qml-module-qt-labs-folderlistmodel
+Conflicts: msa-daemon, msa-ui-qt, mcpelauncher-client, mcpelauncher-ui-qt
 Maintainer: $name <$email>
 Installed-Size: $size
 Section: custom
