@@ -83,7 +83,7 @@ status "==> Downloading source code..."
 curl -O https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/mcpelauncher-thesonicmaster-$ver.tar.xz
 # Verify source sha256sum.
 status2 "==> Verifying source against sha256sum... "
-curl -O https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/mcpelauncher-thesonicmaster-$ver.tar.xz.sha256 | sha256sum -c > /dev/null
+curl -s https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/mcpelauncher-thesonicmaster-$ver.tar.xz.sha256 | sha256sum -c > /dev/null
 status "All Good!"
 # Extract source tarball.
 status "==> Unpacking source tarball, please be patient..."
