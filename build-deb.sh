@@ -136,14 +136,14 @@ done
 # Collect other package info needed for the control file.
 status "==> Collecting system/software info for the package..."
 # Set correct architecture (only x86 and x86_64 currently supported).
-case $(uname -m) in
-  x86_64) arch=amd64 ;;
-  i?86) arch=i386 ;;
-esac
+arch=$(dpkg --print-architecture)
 # Set correct dependencies for the package.
 case $arch in
   amd64) libdir=/usr/lib/x86_64-linux-gnu ;;
-  i?86) libdir=/usr/lib/i386-linux-gnu ;;
+  i386) libdir=/usr/lib/i386-linux-gnu ;;
+  arm64) libdir=/usr/lib/aarch64-linux-gnu ;;
+  armhf) libdir=/usr/lib/arm-linux-gnueabihf ;;
+  armel) libdir=/usr/lib/arm-linux-gnueabi ;;
 esac
 if [ -f $libdir/libzip.so.4 ]; then
   libzip=libzip4
@@ -158,6 +158,8 @@ elif [ -f $libdir/libprotobuf.so.17 ]; then
   protobuf=libprotobuf17
 elif [ -f $libdir/libprotobuf.so.23 ]; then
   protobuf=libprotobuf23
+elif [ -f $libdir/libprotobuf.so.26 ]; then
+  protobuf=libprotobuf26
 else
   warn "==> Correct protobuf version not found. Dependency will be excluded."
 fi
