@@ -185,6 +185,9 @@ Priority: optional
 Homepage: https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster
 Description: Minecraft Bedrock Edition Linux launcher with license error fixed.
 END
+# Remove extra commas from control file, if present (needs to be done twice).
+sed -i 's/, ,/,/' $pkgdir/DEBIAN/control
+sed -i 's/, ,/,/' $pkgdir/DEBIAN/control
 # Create package.
 status "==> Building DEB package..."
 cd $pkgdir/..
