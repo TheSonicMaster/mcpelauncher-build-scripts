@@ -76,7 +76,7 @@ pkgdir=/tmp/pkg$(date "+%Y%m%d%H%M%S")/mcpelauncher-thesonicmaster
 # Check and set version version
 status2 "==> Checking version... "
 ver="$(curl -s https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/latest.version)"
-pkgver="$ver~$(lsb_release -sc)"
+pkgver="$ver~$(lsb_release -sc | sed 's/\///')"
 status "$ver"
 # Download latest source code.
 status "==> Downloading source code..."
