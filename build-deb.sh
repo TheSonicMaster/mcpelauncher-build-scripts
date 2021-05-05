@@ -108,7 +108,7 @@ cd ../..
 status "==> Building the game launcher..."
 cd mcpelauncher
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DENABLE_QT_ERROR_UI=OFF $cmake_options ..
+CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
 ninja
 # Install the game launcher.
 status "==> Installing the game launcher..."
