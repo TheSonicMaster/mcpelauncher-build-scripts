@@ -67,7 +67,7 @@ if [ $EUID = 0 ]; then
   echo
 fi
 # Save the current directory so we know where to put the finished DEB package.
-savedir=$(pwd)
+savedir="$(pwd)"
 # Change to a clean build directory.
 builddir=/tmp/build$(date "+%Y%m%d%H%M%S")
 mkdir -p $builddir && cd $builddir
@@ -75,15 +75,15 @@ mkdir -p $builddir && cd $builddir
 pkgdir=/tmp/pkg$(date "+%Y%m%d%H%M%S")/mcpelauncher-thesonicmaster
 # Check and set version version
 status2 "==> Checking version... "
-ver="$(curl -s https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/latest.version)"
+ver="$(curl -Ls https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/latest.version)"
 pkgver="$ver~$(lsb_release -sc | sed 's/\///')"
 status "$ver"
 # Download latest source code.
 status "==> Downloading source code..."
-curl -O https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/mcpelauncher-thesonicmaster-$ver.tar.xz
+curl -LO https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-$ver.tar.xz
 # Verify source sha256sum.
 status2 "==> Verifying source against sha256sum... "
-curl -s https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster/source/mcpelauncher-thesonicmaster-$ver.tar.xz.sha256 | sha256sum -c > /dev/null
+curl -Ls https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-$ver.tar.xz.sha256 | sha256sum -c > /dev/null
 status "All Good!"
 # Extract source tarball.
 status "==> Unpacking source tarball, please be patient..."
@@ -192,7 +192,7 @@ sed -i 's/, ,/,/' $pkgdir/DEBIAN/control
 status "==> Building DEB package..."
 cd $pkgdir/..
 dpkg-deb --build mcpelauncher-thesonicmaster mcpelauncher-thesonicmaster_${pkgver}_${arch}.deb
-mv mcpelauncher-thesonicmaster_${pkgver}_${arch}.deb $savedir
+mv mcpelauncher-thesonicmaster_${pkgver}_${arch}.deb "$savedir"
 # Clean up.
 status "==> Cleaning up..."
 rm -rf $builddir $pkgdir
