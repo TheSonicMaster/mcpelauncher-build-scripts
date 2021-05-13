@@ -182,7 +182,7 @@ Maintainer: $name <$email>
 Installed-Size: $size
 Section: custom
 Priority: optional
-Homepage: https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster
+Homepage: https://mcpelauncher-thesonicmaster.sourceforge.io
 Description: Minecraft Bedrock Edition Linux launcher with license error fixed.
 END
 # Remove extra commas from control file, if present (needs to be done twice).
