@@ -142,7 +142,7 @@ cd $appdir/usr/bin
 strip --strip-all *
 # Package AppImage
 lddir=/tmp/ld$(date "+%Y%m%d%H%M%S")
-cd $lddir
+mkdir -p $lddir && cd $lddir
 status "==> Downloading linuxdeploy..."
 if [ $arch = x86_64 ]; then
   curl -LO https://artifacts.assassinate-you.net/linuxdeploy/travis-456/linuxdeploy-x86_64.AppImage
