@@ -134,8 +134,8 @@ ninja
 # Install the Qt GUI.
 status "==> Installing the Qt GUI..."
 DESTDIR=$appdir ninja install
-cp ../mcpelauncher-ui-qt/Resources/proprietary/mcpelauncher-icon-512.png ../../mcpelauncher-ui-qt.png
-cp ../mcpelauncher-ui-qt/mcpelauncher-ui-qt.desktop ../../mcpelauncher-ui-qt.desktop
+cp ../mcpelauncher-ui-qt/Resources/proprietary/mcpelauncher-icon-512.png ../../../mcpelauncher-ui-qt.png
+cp ../mcpelauncher-ui-qt/mcpelauncher-ui-qt.desktop ../../../mcpelauncher-ui-qt.desktop
 # Strip unneeded debugging symbols to free up space.
 status "==> Stripping executables..."
 cd $appdir/usr/bin
