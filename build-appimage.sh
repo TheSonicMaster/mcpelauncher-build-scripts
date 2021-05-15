@@ -166,7 +166,7 @@ cd ..
 # Run linuxdeploy.
 status "==> Running linuxdeploy..."
 linuxdeploy/squashfs-root/AppRun --appdir $appdir -i $builddir/mcpelauncher-ui-qt.png -d $builddir/mcpelauncher-ui-qt.desktop
-export QML_SOURCES_PATHS=$builddir/mcpelauncher-ui/mcpelauncher-ui-qt/qml/:$builddir/mcpelauncher/mcpelauncher-webview
+export QML_SOURCES_PATHS=$builddir/mcpelauncher-thesonicmaster-$ver/mcpelauncher-ui/mcpelauncher-ui-qt/qml/:$builddir/mcpelauncher-thesonicmaster-$ver/mcpelauncher/mcpelauncher-webview
 linuxdeploy-plugin-qt/squashfs-root/AppRun --appdir $appdir
 status "==> Installing additional files..."
 cp -r /usr/lib/$arch-linux-gnu/nss $appdir/usr/lib/
