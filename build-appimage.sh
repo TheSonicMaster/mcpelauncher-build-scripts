@@ -191,6 +191,7 @@ kill \$MSAUIQT
 kill \$MSADAEMON
 END
 status "==> Building AppImage..."
+export ARCH=$arch
 export OUTPUT="mcpelauncher-thesonicmaster-$ver-$arch.AppImage"
 linuxdeploy/squashfs-root/AppRun --appdir $appdir --output appimage
 mv mcpelauncher-thesonicmaster-$ver-$arch.AppImage "$savedir"
