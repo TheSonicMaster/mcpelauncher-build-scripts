@@ -119,7 +119,7 @@ cd ../..
 status "==> Building the game launcher..."
 cd mcpelauncher
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
+CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DMSA_DAEMON_PATH=. -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
 ninja
 # Install the game launcher.
 status "==> Installing the game launcher..."
@@ -129,7 +129,7 @@ cd ../..
 status "==> Building the Qt GUI..."
 cd mcpelauncher-ui
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake $cmake_options ..
+CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DGAME_LAUNCHER_PATH=. $cmake_options ..
 ninja
 # Install the Qt GUI.
 status "==> Installing the Qt GUI..."
