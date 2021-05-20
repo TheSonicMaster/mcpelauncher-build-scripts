@@ -121,7 +121,7 @@ cd ../..
 status "==> Building the Qt GUI..."
 cd mcpelauncher-ui
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake $cmake_options ..
+CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DLAUNCHER_VERSION_CODE="DEB" $cmake_options ..
 ninja
 # Install the Qt GUI.
 status "==> Installing the Qt GUI..."
