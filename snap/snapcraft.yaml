@@ -1,0 +1,91 @@
+name: mcpelauncher-thesonicmaster
+base: core18
+version: '20210521'
+summary: Minecraft Bedrock Linux launcher with license error fixed.
+description: |
+  This is The Sonic Master's fork of the Minecraft Bedrock Launcher
+  (mcpelauncher), which fixes the license error. For more information, see
+  https://mcpelauncher.thesonicmaster.net
+architectures:
+  - build-on: amd64
+    run-on: amd64
+grade: stable
+confinement: strict
+apps:
+  mcpelauncher-thesonicmaster:
+    extensions:
+      - kde-neon
+    common-id: io.mrarm.mcpelauncher
+    command: usr/bin/mcpelauncher-ui-qt
+    desktop: usr/share/applications/mcpelauncher-ui-qt.desktop
+    plugs:
+      - audio-playback
+      - browser-support
+      - desktop
+      - desktop-legacy
+      - gsettings
+      - home
+      - network
+      - network-bind
+      - network-observe
+      - opengl
+      - pulseaudio
+      - unity7
+      - wayland
+      - x11
+slots:
+  session-dbus-interface:
+    interface: dbus
+    name: io.mrarm.mcpelauncher
+    bus: session
+parts:
+  mcpelauncher-thesonicmaster:
+    source: https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-20210521.tar.xz
+    plugin: cmake
+    build-snaps:
+      - kde-frameworks-5-core18-sdk
+      - kde-frameworks-5-core18
+    build-packages:
+      - clang-10
+      - gettext
+      - libcurl4-openssl-dev
+      - libegl1-mesa-dev
+      - libprotobuf-dev
+      - libssl-dev
+      - libudev-dev
+      - libuv1-dev
+      - libxi-dev
+      - libzip-dev
+      - ninja-build
+      - protobuf-compiler
+      - texinfo
+      - wget
+    stage-packages:
+      - lib32stdc++6
+      - libcurl4
+      - libprotobuf10
+      - libuv1
+    override-build: |
+      cd $SNAPCRAFT_PART_SRC
+      # We need a newer version of cmake, otherwise the launcher won't compile.
+      wget -nc https://github.com/Kitware/CMake/releases/download/v3.20.0/cmake-3.20.0-linux-x86_64.tar.gz
+      tar --skip-old-files -xf cmake-3.20.0-linux-x86_64.tar.gz
+      cmake=$SNAPCRAFT_PART_SRC/cmake-3.20.0-linux-x86_64/bin/cmake
+      cmake_options="-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_FIND_ROOT_PATH='/snap/kde-frameworks-5-core18-sdk/current;/snap/kde-frameworks-5-core18/current' -Wno-dev -G Ninja"
+      cd msa
+      mkdir -p build && cd build
+      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' LDFLAGS='-lpthread' $cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
+      ninja
+      DESTDIR=$SNAPCRAFT_PART_INSTALL ninja install
+      cd ../../mcpelauncher
+      mkdir -p build && cd build
+      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' LDFLAGS='-lpthread' $cmake -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
+      ninja
+      DESTDIR=$SNAPCRAFT_PART_INSTALL ninja install
+      cd ../../mcpelauncher-ui
+      mkdir -p build && cd build
+      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' LDFLAGS='-lpthread' $cmake -DLAUNCHER_VERSION_CODE="SNAP" $cmake_options ..
+      ninja
+      DESTDIR=$SNAPCRAFT_PART_INSTALL ninja install
+      # Fix icon display for snap package.
+      sed -i 's/Icon=mcpelauncher-ui-qt/Icon=\/usr\/share\/pixmaps\/mcpelauncher-ui-qt.png/' $SNAPCRAFT_PART_INSTALL/usr/share/applications/mcpelauncher-ui-qt.desktop
