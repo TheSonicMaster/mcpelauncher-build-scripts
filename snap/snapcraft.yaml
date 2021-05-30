@@ -58,6 +58,7 @@ parts:
       - wget
     stage-packages:
       - lib32stdc++6
+      - libasound2
       - libcurl4
       - libprotobuf10
       - libuv1
