@@ -1,6 +1,7 @@
 name: mcpelauncher-thesonicmaster
 base: core18
 version: '20210521'
+license: GPL-3.0
 summary: Minecraft Bedrock Linux launcher with license error fixed.
 description: |
   This is The Sonic Master's fork of the Minecraft Bedrock Launcher
