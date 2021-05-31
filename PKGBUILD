@@ -2,7 +2,7 @@
 
 pkgname=mcpelauncher-thesonicmaster
 pkgver=20210521
-pkgrel=1
+pkgrel=2
 pkgdesc="Minecraft Bedrock Edition Linux launcher with license error fixed."
 arch=("i686" "x86_64")
 url="https://www.thesonicmaster.net/software/mcpelauncher-thesonicmaster"
