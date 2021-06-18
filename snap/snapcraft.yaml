@@ -105,17 +105,17 @@ parts:
       cmake_options="-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_FIND_ROOT_PATH='/snap/kde-frameworks-5-core18-sdk/current;/snap/kde-frameworks-5-core18/current' -Wno-dev -G Ninja"
       cd msa
       mkdir -p build && cd build
-      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' LDFLAGS='-lpthread' $cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
+      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' $cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
       ninja
       DESTDIR=$SNAPCRAFT_PART_INSTALL ninja install
       cd ../../mcpelauncher
       mkdir -p build && cd build
-      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' LDFLAGS='-lpthread' $cmake -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
+      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' $cmake -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
       ninja
       DESTDIR=$SNAPCRAFT_PART_INSTALL ninja install
       cd ../../mcpelauncher-ui
       mkdir -p build && cd build
-      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' LDFLAGS='-lpthread' $cmake -DLAUNCHER_VERSION_CODE="SNAP" $cmake_options ..
+      CC=clang-10 CXX=clang++-10 CFLAGS='-O3' CXXFLAGS='-O3' $cmake -DLAUNCHER_VERSION_CODE="SNAP" $cmake_options ..
       ninja
       DESTDIR=$SNAPCRAFT_PART_INSTALL ninja install
       # Strip executables to free up some space.
