@@ -71,7 +71,7 @@ parts:
   mcpelauncher-thesonicmaster:
     after:
       - alsa-mixin
-    source: https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-20210707.tar.xz
+    source: https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-20210708.tar.xz
     plugin: cmake
     build-snaps:
       - kde-frameworks-5-core18-sdk
