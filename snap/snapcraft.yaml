@@ -1,6 +1,6 @@
 name: mcpelauncher-thesonicmaster
 base: core18
-version: '20210707'
+version: '20210708'
 license: GPL-3.0
 summary: Minecraft Bedrock Linux launcher with license error fixed.
 description: |
