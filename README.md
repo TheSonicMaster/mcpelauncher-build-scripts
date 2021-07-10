@@ -17,6 +17,9 @@ cd mcpelauncher-build-scripts
 Ubuntu 18.04 has some outdated software, so the above script won't satisfy all
 the dependencies. To satisfy the rest, run the following commands:
 
+**NOTE: DO NOT RUN THESE COMMANDS ON VERSIONS NEWER THAN 18.04. IT MAY BREAK
+YOUR SYSTEM**
+
 1. Newer version of Clang:
 ```
 sudo apt remove --autoremove clang
