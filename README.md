@@ -7,37 +7,56 @@ information about this project, visit https://mcpelauncher.thesonicmaster.net.
 git clone https://github.com/TheSonicMaster/mcpelauncher-build-scripts.git
 cd mcpelauncher-build-scripts
 ```
-# Installing build dependencies (not needed if building AUR or Snap package)
+# Dependencies for building
+**Note: Not required if building the Snap package.**
 ## On Debian/Ubuntu
 ```
 ./install-deps-debian.sh
 ```
-## On Arch Linux
+### Fix for Ubuntu 18.04
+Ubuntu 18.04 has some outdated software, so the above script won't satisfy all
+the dependencies. To satisfy the rest, run the following commands:
+
+1. Newer version of Clang:
 ```
-./install-deps-arch.sh
+sudo apt remove --autoremove clang
+sudo apt install clang-10
+sudo ln -sf clang-10 /usr/bin/clang
+sudo ln -sf clang++-10 /usr/bin/clang++
+```
+2. Newer version of CMake:
+```
+sudo apt remove --autoremove cmake
+curl -LOs https://github.com/Kitware/CMake/releases/download/v3.20.5/cmake-3.20.5-linux-x86_64.tar.gz
+sudo tar --no-same-owner -xf cmake-3.20.5-linux-x86_64 -C /usr/local --strip-components=1
+rm cmake-3.20.5-linux-x86_64.tar.gz
+```
+3. Extra Qt package required:
+```
+sudo apt install qt5-default
 ```
 ## Other distros
 You need the following software:
 
 - Standard build tools
-- [Clang](https://clang.llvm.org/)
-- [CMake](https://cmake.org/)
+- [Clang](https://clang.llvm.org/) (>= 7.0.0)
+- [CMake](https://cmake.org/) (>= 3.11)
 - [libcurl](https://curl.se/libcurl/)
 - [libegl (libglvnd)](https://github.com/NVIDIA/libglvnd)
 - [libevdev](https://www.freedesktop.org/software/libevdev/doc/latest/)
 - [libpng](http://www.libpng.org/pub/png/libpng.html)
 - [libzip](https://libzip.org/)
 - [Ninja](https://ninja-build.org/)
-- [OpenSSL](https://www.openssl.org/)
+- [OpenSSL](https://www.openssl.org/) (>= 1.1)
 - [Protobuf](https://developers.google.com/protocol-buffers/)
-- [Qt5 development libraries](https://www.qt.io/)
+- [Qt5 development libraries](https://www.qt.io/) (>= 5.9)
 - [Xorg development libraries](https://xorg.freedesktop.org/)
 - [zlib](https://zlib.net/)
 
-# Building (Install dependencies as outlined above first)
+# Building packages
 ## AppImage
-Note: Still experimental. It may randomly fail. For best results, compile on
-Ubuntu with an official Qt5 installation (not using the distro's Qt5 packages).
+Note: AppImage developers recommend building on the oldest Ubuntu version which
+is still supported. At the time of writing, this is Ubuntu 18.04 LTS.
 ```
 ./build-appimage.sh
 ```
@@ -49,12 +68,6 @@ Execute the AppImage to run it.
 ```
 This will produce `mcpelauncher-thesonicmaster_<ver>~<os-codename>_<arch>.deb`.
 Install it with `sudo apt install ./<filename>.deb`.
-## AUR package
-```
-makepkg -sc
-```
-This will produce `mcpelauncher-thesonicmaster-<ver>-<arch>.pkg.tar.zst`.
-Install it with `sudo pacman -U ./<filename>.pkg.tar.zst`.
 ## Snap package
 If this is your first time building a Snap package, you have to setup Snapcraft
 first. This only has to be done once, it can be skipped for subsequent builds:
