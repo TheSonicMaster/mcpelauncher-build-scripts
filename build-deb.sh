@@ -53,10 +53,10 @@ fi
 # Save the current directory so we know where to put the finished DEB package.
 savedir="$(pwd)"
 # Change to a clean build directory.
-builddir=/tmp/build$(date "+%Y%m%d%H%M%S")
-mkdir -p $builddir && cd $builddir
+builddir=$(mktemp -d)
+cd $builddir
 # Set package directory.
-pkgdir=/tmp/pkg$(date "+%Y%m%d%H%M%S")/mcpelauncher-thesonicmaster
+pkgdir=$(mktemp -d)/mcpelauncher-thesonicmaster
 # Check and set version version
 status2 "==> Checking version... "
 ver="$(curl -Ls https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/latest.version)"

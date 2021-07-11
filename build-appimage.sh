@@ -61,10 +61,10 @@ esac
 # Save the current directory so we know where to put the finished DEB package.
 savedir="$(pwd)"
 # Change to a clean build directory.
-builddir=/tmp/build$(date "+%Y%m%d%H%M%S")
-mkdir -p $builddir && cd $builddir
+builddir=$(mktemp -d)
+cd $builddir
 # Set package directory and app directory.
-pkgdir=/tmp/appimage$(date "+%Y%m%d%H%M%S")
+pkgdir=$(mktemp -d)
 appdir=$pkgdir/AppDir
 # Check and set version version
 status2 "==> Checking version... "
@@ -122,7 +122,7 @@ status "==> Stripping executables..."
 cd $appdir/usr/bin
 strip --strip-all *
 # Package AppImage
-lddir=/tmp/ld$(date "+%Y%m%d%H%M%S")
+lddir=$(mktemp -d)
 mkdir -p $lddir && cd $lddir
 status "==> Downloading linuxdeploy..."
 if [ $arch = x86_64 ]; then
