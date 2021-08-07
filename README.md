@@ -42,16 +42,19 @@ sudo apt install qt5-default
 You need the following software:
 
 - Standard build tools
+- [alsa-lib (libasound2)](https://www.alsa-project.org)
 - [Clang](https://clang.llvm.org/) (>= 7.0.0)
 - [CMake](https://cmake.org/) (>= 3.11)
 - [libcurl](https://curl.se/libcurl/)
 - [libegl (libglvnd)](https://github.com/NVIDIA/libglvnd)
 - [libevdev](https://www.freedesktop.org/software/libevdev/doc/latest/)
 - [libpng](http://www.libpng.org/pub/png/libpng.html)
+- [libuv](https://libuv.org/)
 - [libzip](https://libzip.org/)
 - [Ninja](https://ninja-build.org/)
 - [OpenSSL](https://www.openssl.org/) (>= 1.1)
 - [Protobuf](https://developers.google.com/protocol-buffers/)
+- [PulseAudio](https://www.freedesktop.org/wiki/Software/PulseAudio/)
 - [Qt5 development libraries](https://www.qt.io/) (>= 5.9)
 - [Xorg development libraries](https://xorg.freedesktop.org/)
 - [zlib](https://zlib.net/)
