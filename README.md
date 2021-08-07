@@ -43,7 +43,7 @@ You need the following software:
 
 - Standard build tools
 - [alsa-lib (libasound2)](https://www.alsa-project.org)
-- [Clang](https://clang.llvm.org/) (>= 7.0.0)
+- [Clang](https://clang.llvm.org/) (>= 7.0.0) (or GCC but **ONLY** if GCC has been built **WITHOUT** `--enable-default-pie`)
 - [CMake](https://cmake.org/) (>= 3.11)
 - [libcurl](https://curl.se/libcurl/)
 - [libegl (libglvnd)](https://github.com/NVIDIA/libglvnd)
