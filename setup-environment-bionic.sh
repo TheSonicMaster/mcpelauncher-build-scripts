@@ -67,7 +67,7 @@ status "==> Installing repo dependencies..."
 apt-get install -y build-essential clang-10 gettext git libasound2 libegl1-mesa-dev libevdev-dev libpulse-dev libtool libudev-dev libuv1-dev libx11-dev libxi-dev libzip-dev ninja-build squashfs-tools texinfo wget xz-utils
 # Ensure clang can be found.
 ln -sf clang-10 /usr/bin/clang
-ln -sf clang++-10 /usr/bin/clang-10
+ln -sf clang++-10 /usr/bin/clang++
 # Install CMake.
 status "==> Downloading and installing CMake..."
 wget https://github.com/Kitware/CMake/releases/download/v3.21.0/cmake-3.21.0-linux-x86_64.tar.gz
