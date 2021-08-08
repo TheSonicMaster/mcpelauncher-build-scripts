@@ -64,7 +64,7 @@ apt-get update
 apt-get full-upgrade -y
 # Install repo dependencies.
 status "==> Installing repo dependencies..."
-apt-get install -y build-essential clang-10 gettext git libasound2 libegl1-mesa-dev libevdev-dev libpulse-dev libtool libudev-dev libuv1-dev libx11-dev libxi-dev libzip-dev ninja-build squashfs-tools texinfo wget xz
+apt-get install -y build-essential clang-10 gettext git libasound2 libegl1-mesa-dev libevdev-dev libpulse-dev libtool libudev-dev libuv1-dev libx11-dev libxi-dev libzip-dev ninja-build squashfs-tools texinfo wget xz-utils
 # Ensure clang can be found.
 ln -sf clang-10 /usr/bin/clang
 ln -sf clang++-10 /usr/bin/clang
@@ -80,6 +80,8 @@ cd openssl-1.1.1k
 ./config --prefix=/usr/local --openssldir=/usr/local/etc/ssl shared
 make -j$(nproc)
 make install
+rm -r /usr/local/etc/ssl/certs
+ln -srv /etc/ssl/certs /usr/local/etc/ssl/certs
 cd ..
 # Build and install curl.
 status "==> Building and installing curl..."
