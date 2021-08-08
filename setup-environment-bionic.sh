@@ -34,6 +34,7 @@ error() {
 # Exit if not running as root.
 if [ $EUID -ne 0 ]; then
   error "==> Error: This script must be run as root."
+fi
 # Initial warning.
 warn "==> WARNING: THIS SCRIPT MUST ONLY BE RUN IN A VM OR A DOCKER CONTAINER!"
 warn "==> WARNING: RUNNING IT ON A REAL SYSTEM MAY RESULT IN A BROKEN SYSTEM!"
