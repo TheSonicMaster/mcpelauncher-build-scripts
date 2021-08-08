@@ -38,6 +38,19 @@ rm cmake-3.20.5-linux-x86_64.tar.gz
 ```
 sudo apt install qt5-default
 ```
+### Convenience script for setting up Ubuntu 18.04 AppImage build environment
+This script will install and set up all the necessary dependencies for building
+and installing an AppImage on Ubuntu 18.04.
+
+**This should ONLY be run in a VM or docker container. Running it on a real
+system will cause problems. Additionally, this should ONLY be run on an Ubuntu
+18.04 environment for building AppImages. Do NOT build DEB packages in an
+environment set up using this script; use the workarounds above instead.**
+
+Run the script with the following command:
+```
+sudo ./setup-environment-bionic.sh
+```
 ## Other distros
 You need the following software:
 
