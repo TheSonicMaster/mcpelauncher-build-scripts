@@ -69,7 +69,6 @@ sed -i "s/Import .apk/Download Sideload Versions/" mcpelauncher-ui/mcpelauncher-
 sed -i "s/apkImportWindow.pickFile()/Qt.openUrlExternally(\"https:\/\/go.thesonicmaster.net\/mcpe-sideload\")/" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherSettingsVersions.qml
 sed -i "/LAUNCHER_ENABLE_GOOGLE_PLAY_LICENCE_CHECK/d" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherSettingsVersions.qml
 sed -i "s/The Launcher has trouble to verify that you own the Game on Google Play. You may need to buy the Game. If you own the game on the Play Store on the signed in account try sign out, sign in again and accept the Tos Prompt. If you won't accept the Google Play Terms of Service Window inside the Launcher after sign in you cannot play the Game./Hi there\! You're seeing this message because the upstream developers recently updated the launcher to prevent you from playing if you don't own Minecraft on Google Play. Fortunately, you're using The Sonic Master's fork, therefore the license error is removed and you can simply close this message and carry on. Have a nice day\! :)/" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherMain.qml
-sed -i 's/(build %2)/(build %2) (The Sonic Master)/'
 status "==> Finishing up..."
 echo $ver > version.txt
 curl -s https://raw.githubusercontent.com/TheSonicMaster/mcpelauncher-build-scripts/main/LICENSE > LICENSE
