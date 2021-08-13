@@ -71,7 +71,7 @@ parts:
   mcpelauncher-thesonicmaster:
     after:
       - alsa-mixin
-    source: https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-20210727.tar.xz
+    source: https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-20210813.tar.xz
     plugin: cmake
     build-snaps:
       - kde-frameworks-5-core18-sdk
@@ -100,7 +100,7 @@ parts:
       export CC=clang CXX=clang++ CFLAGS="-Os" CXXFLAGS="-Os"
       cd $SNAPCRAFT_PART_SRC
       # We need a newer version of cmake, otherwise the launcher won't compile.
-      wget -nc https://github.com/Kitware/CMake/releases/download/v3.20.0/cmake-3.20.0-linux-x86_64.tar.gz
+      wget -nc https://github.com/Kitware/CMake/releases/download/v3.21.0/cmake-3.21.0-linux-x86_64.tar.gz
       tar --skip-old-files -xf cmake-3.21.0-linux-x86_64.tar.gz
       cmake=$SNAPCRAFT_PART_SRC/cmake-3.21.0-linux-x86_64/bin/cmake
       cmake_options="-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_FIND_ROOT_PATH='/snap/kde-frameworks-5-core18-sdk/current;/snap/kde-frameworks-5-core18/current' -Wno-dev -G Ninja"
