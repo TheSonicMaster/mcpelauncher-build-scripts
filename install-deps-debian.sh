@@ -32,7 +32,7 @@ as_root() {
   fi
 }
 # Launch apt to install dependencies.
-as_root apt install -y autoconf build-essential clang cmake gettext git \
+as_root apt install -y build-essential clang cmake gettext git \
                        libasound2 libcurl4-openssl-dev libegl1-mesa-dev \
                        libevdev-dev libpng-dev libprotobuf-dev libpulse-dev \
                        libqt5svg5-dev libssl-dev libtool libudev-dev \

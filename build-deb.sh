@@ -57,6 +57,17 @@ builddir=$(mktemp -d)
 cd $builddir
 # Set package directory.
 pkgdir=$(mktemp -d)/mcpelauncher-thesonicmaster
+# Ensure we are compiling with Clang.
+export CC=clang CXX=clang++
+# Set compiler flags, but don't override existing flags.
+if [ -z "$CFLAGS" ]; then
+  # Optimise for size (-Os)
+  export CFLAGS="-Os"
+fi
+if [ -z "$CXXFLAGS" ]; then
+  # Optimise for size (-Os)
+  export CXXFLAGS="-Os"
+fi
 # Check and set version version
 status2 "==> Checking version... "
 ver="$(curl -Ls https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/latest.version)"
@@ -82,7 +93,7 @@ cmake_options="-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -Wno-dev -
 status "==> Building MSA (for Xbox Live)..."
 cd msa
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
+cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
 ninja
 # Install MSA.
 status "==> Installing MSA..."
@@ -92,7 +103,7 @@ cd ../..
 status "==> Building the game launcher..."
 cd mcpelauncher
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
+cmake -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
 ninja
 # Install the game launcher.
 status "==> Installing the game launcher..."
@@ -102,7 +113,7 @@ cd ../..
 status "==> Building the Qt GUI..."
 cd mcpelauncher-ui
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DLAUNCHER_VERSION_CODE="DEB" $cmake_options ..
+cmake -DLAUNCHER_VERSION_CODE="DEB" $cmake_options ..
 ninja
 # Install the Qt GUI.
 status "==> Installing the Qt GUI..."
@@ -113,13 +124,13 @@ cd $pkgdir/usr/bin
 strip --strip-all *
 # Collect maintainer information (required for the Debian control file).
 status "==> Collecting maintainer information for the package..."
-warn "==> Note: This information is only used for the package metadata."
+warn "==> Note: If running non-interactively, export NAME and EMAIL as needed."
 mkdir -p $pkgdir/DEBIAN
-while [ -z "$name" ]; do
-  read -p "Your full name (or name of organisation): " name
+while [ -z "$NAME" ]; do
+  read -p "Your full name (or name of organisation): " NAME
 done
-while [ -z "$email" ]; do
-  read -p "Email address: " email
+while [ -z "$NAME" ]; do
+  read -p "Email address: " EMAIL
 done
 # Collect other package info needed for the control file.
 status "==> Collecting system/software info for the package..."
@@ -162,7 +173,7 @@ Version: $pkgver
 Architecture: $arch
 Depends: libc6, libssl1.1, libcurl4, libqt5widgets5, libqt5webenginewidgets5, libstdc++6, libx11-6, zlib1g, libpng16-16, libevdev2, libudev1, $libzip, libuv1, libqt5quick5, libqt5svg5, libqt5quickcontrols2-5, libqt5quicktemplates2-5, libqt5concurrent5, $protobuf, qml-module-qtquick2, qml-module-qtquick-layouts, qml-module-qtquick-controls, qml-module-qtquick-controls2, qml-module-qtquick-window2, qml-module-qtquick-dialogs, qml-module-qtwebengine, qml-module-qt-labs-settings, qml-module-qt-labs-folderlistmodel
 Conflicts: msa-daemon, msa-ui-qt, mcpelauncher-client, mcpelauncher-ui-qt
-Maintainer: $name <$email>
+Maintainer: $NAME <$EMAIL>
 Installed-Size: $size
 Section: custom
 Priority: optional

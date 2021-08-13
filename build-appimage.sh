@@ -66,6 +66,17 @@ cd $builddir
 # Set package directory and app directory.
 pkgdir=$(mktemp -d)
 appdir=$pkgdir/AppDir
+# Ensure we are compiling with Clang.
+export CC=clang CXX=clang++
+# Set compiler flags, but don't override existing flags.
+if [ -z "$CFLAGS" ]; then
+  # Optimise for size (-Os)
+  export CFLAGS="-Os"
+fi
+if [ -z "$CXXFLAGS" ]; then
+  # Optimise for size (-Os)
+  export CXXFLAGS="-Os"
+fi
 # Check and set version version
 status2 "==> Checking version... "
 ver="$(curl -Ls https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/latest.version)"
@@ -90,7 +101,7 @@ cmake_options="-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -Wno-dev -
 status "==> Building MSA (for Xbox Live)..."
 cd msa
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
+cmake -DENABLE_MSA_QT_UI=ON $cmake_options ..
 ninja
 # Install MSA.
 status "==> Installing MSA..."
@@ -100,7 +111,7 @@ cd ../..
 status "==> Building the game launcher..."
 cd mcpelauncher
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DMSA_DAEMON_PATH=. -DXAL_WEBVIEW_QT_PATH=. -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
+cmake -DMSA_DAEMON_PATH=. -DXAL_WEBVIEW_QT_PATH=. -DENABLE_QT_ERROR_UI=OFF -DJNI_USE_JNIVM=ON $cmake_options ..
 ninja
 # Install the game launcher.
 status "==> Installing the game launcher..."
@@ -110,7 +121,7 @@ cd ../..
 status "==> Building the Qt GUI..."
 cd mcpelauncher-ui
 mkdir build && cd build
-CC=clang CXX=clang++ CFLAGS='-O3' CXXFLAGS='-O3' cmake -DGAME_LAUNCHER_PATH=. -DLAUNCHER_VERSION_CODE="APPIMAGE" $cmake_options ..
+cmake -DGAME_LAUNCHER_PATH=. -DLAUNCHER_VERSION_CODE="APPIMAGE" $cmake_options ..
 ninja
 # Install the Qt GUI.
 status "==> Installing the Qt GUI..."
@@ -172,10 +183,8 @@ kill \$MSAUIQT
 kill \$MSADAEMON
 END
 status "==> Building AppImage..."
-export ARCH=$arch
-export OUTPUT="mcpelauncher-thesonicmaster-$ver-$arch.AppImage"
-ARCH=$arch linuxdeploy/squashfs-root/AppRun --appdir $appdir --output appimage
+ARCH=$arch OUTPUT="mcpelauncher-thesonicmaster-$ver-$arch.AppImage" linuxdeploy/squashfs-root/AppRun --appdir $appdir --output appimage
 mv mcpelauncher-thesonicmaster-$ver-$arch.AppImage "$savedir"
 status "==> Cleaning up..."
 rm -rf $builddir $pkgdir $lddir
-status "==> AppImage successfully created."
+status "==> $OUTPUT successfully created."
