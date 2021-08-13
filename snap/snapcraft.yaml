@@ -97,7 +97,7 @@ parts:
       - libprotobuf10
       - libuv1
     override-build: |
-      export CC=clang CXX=clang++ CFLAGS="-Os" CXXFLAGS="-Os"
+      export CC=clang-10 CXX=clang++-10 CFLAGS="-Os" CXXFLAGS="-Os"
       cd $SNAPCRAFT_PART_SRC
       # We need a newer version of cmake, otherwise the launcher won't compile.
       wget -nc https://github.com/Kitware/CMake/releases/download/v3.21.0/cmake-3.21.0-linux-x86_64.tar.gz
