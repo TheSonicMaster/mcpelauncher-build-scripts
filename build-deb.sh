@@ -129,7 +129,7 @@ mkdir -p $pkgdir/DEBIAN
 while [ -z "$NAME" ]; do
   read -p "Your full name (or name of organisation): " NAME
 done
-while [ -z "$NAME" ]; do
+while [ -z "$EMAIL" ]; do
   read -p "Email address: " EMAIL
 done
 # Collect other package info needed for the control file.
