@@ -74,9 +74,9 @@ wget https://github.com/Kitware/CMake/releases/download/v3.21.0/cmake-3.21.0-lin
 tar --no-same-owner -xf cmake-3.21.0-linux-x86_64.tar.gz -C /usr/local --strip-components=1
 # Build and install OpenSSL.
 status "==> Building and installing OpenSSL..."
-wget https://www.openssl.org/source/openssl-1.1.1k.tar.gz
-tar --no-same-owner -xf openssl-1.1.1k.tar.gz
-cd openssl-1.1.1k
+wget https://www.openssl.org/source/openssl-1.1.1l.tar.gz
+tar --no-same-owner -xf openssl-1.1.1l.tar.gz
+cd openssl-1.1.1l
 ./config --prefix=/usr/local --openssldir=/usr/local/etc/ssl shared
 make -j$(nproc)
 make install
@@ -85,9 +85,9 @@ ln -srv /etc/ssl/certs /usr/local/etc/ssl/certs
 cd ..
 # Build and install curl.
 status "==> Building and installing curl..."
-wget https://github.com/curl/curl/releases/download/curl-7_78_0/curl-7.78.0.tar.xz
-tar --no-same-owner -xf curl-7.78.0.tar.xz
-cd curl-7.78.0
+wget https://github.com/curl/curl/releases/download/curl-7_79_0/curl-7.79.0.tar.xz
+tar --no-same-owner -xf curl-7.79.0.tar.xz
+cd curl-7.79.0
 ./configure --prefix=/usr/local --with-openssl
 make -j$(nproc)
 make install
@@ -105,9 +105,9 @@ make -j$(nproc)
 make install
 cd ..
 status "==> Building and installing protobuf..."
-wget https://github.com/protocolbuffers/protobuf/releases/download/v3.17.3/protobuf-cpp-3.17.3.tar.gz
-tar --no-same-owner -xf protobuf-cpp-3.17.3.tar.gz
-cd protobuf-3.17.3
+wget https://github.com/protocolbuffers/protobuf/releases/download/v3.18.0/protobuf-cpp-3.18.0.tar.gz
+tar --no-same-owner -xf protobuf-cpp-3.18.0.tar.gz
+cd protobuf-3.18.0
 ./configure --prefix=/usr/local
 make -j$(nproc)
 make install
