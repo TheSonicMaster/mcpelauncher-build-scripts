@@ -1,6 +1,6 @@
 name: mcpelauncher-thesonicmaster
 base: core18
-version: '20210922'
+version: '20210923'
 license: GPL-3.0
 summary: Minecraft Bedrock Linux launcher with license error fixed.
 description: |
@@ -71,7 +71,7 @@ parts:
   mcpelauncher-thesonicmaster:
     after:
       - alsa-mixin
-    source: https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-20210922.tar.xz
+    source: https://downloads.sourceforge.net/mcpelauncher-thesonicmaster/sources/mcpelauncher-thesonicmaster-20210923.tar.xz
     plugin: cmake
     build-snaps:
       - kde-frameworks-5-core18-sdk

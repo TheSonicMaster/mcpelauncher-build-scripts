@@ -28,17 +28,6 @@ set -e
 status() {
   echo -e "\e[1m\e[32m$*\e[0m"
 }
-# Download repo function.
-download() {
-  mkdir -p $1
-  cd $1
-  git init
-  git remote add origin $2
-  git fetch origin $3
-  git reset --hard FETCH_HEAD
-  git submodule update --init --recursive
-  cd ..
-}
 # TODO: Add more comments.
 savedir="$(pwd)"
 tmpdir="$(mktemp -d)"
@@ -47,12 +36,9 @@ wdir=mcpelauncher-thesonicmaster-$ver
 mkdir -p $tmpdir/$wdir
 cd $tmpdir/$wdir
 status "==> Retrieving upstream sources..."
-curl -s https://raw.githubusercontent.com/ChristopherHX/linux-packaging-scripts/main/msa.commit > msa.commit; echo >> msa.commit
-curl -s https://raw.githubusercontent.com/ChristopherHX/linux-packaging-scripts/main/mcpelauncher.commit > mcpelauncher.commit; echo >> mcpelauncher.commit
-curl -s https://raw.githubusercontent.com/ChristopherHX/linux-packaging-scripts/main/mcpelauncher-ui.commit > mcpelauncher-ui.commit; echo >> mcpelauncher-ui.commit
-download msa https://github.com/minecraft-linux/msa-manifest.git $(cat msa.commit)
-download mcpelauncher https://github.com/minecraft-linux/mcpelauncher-manifest.git $(cat mcpelauncher.commit)
-download mcpelauncher-ui https://github.com/minecraft-linux/mcpelauncher-ui-manifest.git $(cat mcpelauncher-ui.commit)
+git clone --recursive https://github.com/minecraft-linux/msa-manifest.git msa
+git clone --recursive -b ng https://github.com/minecraft-linux/mcpelauncher-manifest.git mcpelauncher
+git clone --recursive -b ng https://github.com/minecraft-linux/mcpelauncher-ui-manifest.git mcpelauncher-ui
 status "==> Applying changes for mcpelauncher-thesonicmaster..."
 sed -i "s/\!forceGooglePlayStoreUnverified.get()/true/" mcpelauncher/mcpelauncher-client/src/main.cpp
 sed -i "s/\!forceAmazonAppStoreUnverified.get()/true/" mcpelauncher/mcpelauncher-client/src/main.cpp
@@ -68,7 +54,7 @@ sed -i "s/To use this launcher, you must purchase Minecraft on Google Play and s
 sed -i "s/Import .apk/Download Sideload Versions/" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherSettingsVersions.qml
 sed -i "s/apkImportWindow.pickFile()/Qt.openUrlExternally(\"https:\/\/go.thesonicmaster.net\/mcpe-sideload\")/" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherSettingsVersions.qml
 sed -i "/LAUNCHER_ENABLE_GOOGLE_PLAY_LICENCE_CHECK/d" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherSettingsVersions.qml
-sed -i "s/The Launcher has trouble to verify that you own the Game on Google Play. You may need to buy the Game. If you own the game on the Play Store on the signed in account try sign out, sign in again and accept the Tos Prompt. If you won't accept the Google Play Terms of Service Window inside the Launcher after sign in you cannot play the Game./Hi there\! You're seeing this message because the upstream developers recently updated the launcher to prevent you from playing if you don't own Minecraft on Google Play. Fortunately, you're using The Sonic Master's fork, therefore the license error is removed and you can simply close this message and carry on. Have a nice day\! :)/" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherMain.qml
+sed -i "s/The Launcher has trouble to verify that you own the Game on Google Play. You may need to buy the Game. If you own the game on the Play Store on the signed in account try sign out, sign in again and accept the Tos Prompt. If you won't accept the Google Play Terms of Service Window inside the Launcher after sign in you cannot play the Game./This is not an error. Everything is working correctly\! Simply close this dialog and carry on.../" mcpelauncher-ui/mcpelauncher-ui-qt/qml/LauncherMain.qml
 status "==> Finishing up..."
 echo $ver > version.txt
 curl -s https://raw.githubusercontent.com/TheSonicMaster/mcpelauncher-build-scripts/main/LICENSE > LICENSE
