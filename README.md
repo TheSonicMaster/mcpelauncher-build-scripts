@@ -2,6 +2,10 @@
 Build scripts for mcpelauncher-thesonicmaster, The Sonic Master's fork of the
 Minecraft Bedrock Linux Launcher that fixes the license error. For more
 information about this project, visit https://mcpelauncher.thesonicmaster.net.
+# IMPORTANT
+This project is now **discontinued** and these scripts are archived. Please see
+[this notice](https://mcpelauncher.thesonicmaster.net/discontinued.html) for
+more information.
 # Retrieving the scripts
 ```
 git clone https://github.com/TheSonicMaster/mcpelauncher-build-scripts.git
